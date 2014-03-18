@@ -23,7 +23,7 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 # install sphinxsearch dependencies for odbc
 RUN apt-get install -y unixodbc-dev 
 # install sphinxsearch dependencies for mysql support
-RUN apt-get install -y libmysql++-dev libmysqlclient15-dev
+RUN apt-get install -y libmysql++-dev libmysqlclient15-dev # FIXME: libmysqlclient18-dev ?
 # install sphinxsearch dependencies for postgresql support
 RUN apt-get install -y libpq-dev
 # install sphinxsearch dependencies for xml support
