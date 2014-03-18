@@ -3,7 +3,8 @@ Docker file for SphinxSearch
 
 A Sphinx Search instance builded from source.
 
-Version: 2.1.6
+Version: 2.1.6.
+
 Support:
  - libstemmer
  - xml (with iconv)
