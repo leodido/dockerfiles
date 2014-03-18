@@ -7,24 +7,27 @@ FROM ubuntu:13.10
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
+# set environment
+ENV DEBIAN_FRONTEND noninteractive
+
 # make sure the package repository is up to date
 RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted" > /etc/apt/sources.list
 RUN apt-get update
 
 # install wget
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget
+RUN apt-get install -y wget
 # install sphinxsearch build dependencies
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y make autoconf automake libtool gcc-4.8 g++-4.8
+RUN apt-get install -y make autoconf automake libtool gcc-4.8 g++-4.8
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 # install sphinxsearch dependencies for odbc
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y unixodbc-dev 
+RUN apt-get install -y unixodbc-dev 
 # install sphinxsearch dependencies for mysql support
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libmysql++-dev libmysqlclient15-dev
+RUN apt-get install -y libmysql++-dev libmysqlclient15-dev
 # install sphinxsearch dependencies for postgresql support
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libpq-dev
+RUN apt-get install -y libpq-dev
 # install sphinxsearch dependencies for xml support
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libexpat1-dev
+RUN apt-get install -y libexpat1-dev
 
 # download libstemmer source and extract it
 RUN wget -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
