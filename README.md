@@ -1,5 +1,5 @@
-Docker file for SphinxSearch
-============================
+Docker file for Sphinx Search
+=============================
 
 A Sphinx Search instance builded from source.
 
