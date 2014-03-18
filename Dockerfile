@@ -1,6 +1,6 @@
 # SphinxSearch
 #
-# Version 0.2
+# Version 0.3
 
 # ubuntu base image
 FROM ubuntu:13.10
@@ -30,19 +30,23 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libexpat1-dev
 RUN wget -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 
 # download sphinxsearch source and extract it
-RUN wget -O - http://sphinxsearch.com/files/sphinx-2.1.2-release.tar.gz | tar zx
+RUN wget -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | tar zx
 
 # copy libstemmer inside sphinxsearch source code
-RUN cp -R libstemmer_c/* sphinx-2.1.2-release/libstemmer_c/
+RUN cp -R libstemmer_c/* sphinx-2.1.6-release/libstemmer_c/
 
 # install sphinxsearch
-RUN cd sphinx-2.1.2-release && ./configure --with-libstemmer --enable-id64 && make 
-# Run make -j2 install
+RUN cd sphinx-2.1.6-release && ./configure --with-libstemmer --with-pgsql --enable-id64 && make && make -j install
 
-# launch? which configuration file, e.g. -c sphinx.conf ?
-# ENTRYPOINT ["searchd", "-c", "sphinx.conf"]
+# remove sources
+RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 
-# expose sphinxql port
-# EXPOSE 9306
+# expose ports
+EXPOSE 9306
+EXPOSE 9312
 
-# REMOVE ALL GENERATED DIRECTORIES
+# entry point
+ENTRYPOINT ["searchd"]
+CMD ["--help"]
+
+# FIXME: this way indexer, spelldum and other utilities are masked
