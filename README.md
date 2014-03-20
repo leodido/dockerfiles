@@ -15,6 +15,10 @@ Exposes port `9306`.
 
 ## Usage example
 
+Assuming that your Sphinx Search configuration file path is `./tests/sphinx/sphinx.conf` you can create a container with:
+
+
 ```
-docker run -i -t -v $PWD/tests/sphinx:/usr/local/etc -p 9306 leodido/sphinxsearch bash
+docker run -i -t -v $PWD/tests/sphinx:/usr/local/etc -p 9306 leodido/sphinxsearch searchd
 ```
+

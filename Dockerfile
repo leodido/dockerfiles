@@ -1,6 +1,6 @@
 # Sphinx Search
 #
-# Version 0.3
+# Version 0.9
 
 # ubuntu base image
 FROM ubuntu:13.10
