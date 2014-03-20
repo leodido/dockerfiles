@@ -47,7 +47,4 @@ RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 # expose ports
 EXPOSE 9306
 
-# entry point
-# ENTRYPOINT ["searchd"]
-# CMD ["--help"]
-# FIXME: this way indexer, spelldum and other utilities are masked
+VOLUME ["/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
