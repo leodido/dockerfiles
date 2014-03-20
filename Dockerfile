@@ -1,4 +1,4 @@
-# SphinxSearch
+# Sphinx Search
 #
 # Version 0.3
 
@@ -23,7 +23,7 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 # install sphinxsearch dependencies for odbc
 RUN apt-get install -y unixodbc-dev 
 # install sphinxsearch dependencies for mysql support
-RUN apt-get install -y libmysql++-dev libmysqlclient15-dev # FIXME: libmysqlclient18-dev ?
+RUN apt-get install -y libmysql++-dev libmysqlclient-dev
 # install sphinxsearch dependencies for postgresql support
 RUN apt-get install -y libpq-dev
 # install sphinxsearch dependencies for xml support
@@ -46,10 +46,8 @@ RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 
 # expose ports
 EXPOSE 9306
-EXPOSE 9312
 
 # entry point
-ENTRYPOINT ["searchd"]
-CMD ["--help"]
-
+# ENTRYPOINT ["searchd"]
+# CMD ["--help"]
 # FIXME: this way indexer, spelldum and other utilities are masked

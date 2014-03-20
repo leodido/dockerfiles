@@ -13,13 +13,17 @@ Support:
 
 Exposes ports `9306` and `9312`.
 
-## E.g.
+## Usage example
 
-* `docker run leodido/sphinxsearch`
+```
+SPH=$(docker run \
+    -i -t -d -p 9306 \
+    -v /var/log/sphinx -v /var/lib/sphinx -v /var/run/sphinx -v $PWD/tests/sphinx:/etc/sphinx \
+    leodido/sphinxsearch \
+    /bin/sh)
 
-    prints `searchd --help` by default.
-
-* `docker run leodido/sphinxsearch -c mysphinx.conf`
-
-	...
-
+docker attach $SPH
+searchd -c /etc/sphinx/sphinx.conf
+exit
+docker start $SPH
+```
