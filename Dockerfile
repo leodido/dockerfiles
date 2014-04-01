@@ -48,4 +48,4 @@ RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 EXPOSE 9306
 
 # volumes
-VOLUME ["/var/data/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
+VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
