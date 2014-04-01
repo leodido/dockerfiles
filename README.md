@@ -13,6 +13,13 @@ Support:
 
 Exposes port `9306`.
 
+## Volumes
+
+* `/var/spx/sphinx`
+* `/var/log/sphinx`
+* `/var/lib/sphinx`
+* `/var/run/sphinx`
+
 ## Usage example
 
 Assuming that your Sphinx Search configuration file path is `./tests/sphinx/sphinx.conf` you can create a container with:
