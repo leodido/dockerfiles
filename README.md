@@ -11,9 +11,11 @@ Support:
  - postgresql
  - mysql
 
-Exposes port `9306`.
+## Exposed ports
 
-## Volumes
+* `9306`
+
+## Mount points
 
 * `/var/spx/sphinx`
 * `/var/log/sphinx`
@@ -22,10 +24,10 @@ Exposes port `9306`.
 
 ## Usage example
 
-Assuming that your Sphinx Search configuration file path is `./tests/sphinx/sphinx.conf` you can create a container with:
+Assuming that your Sphinx Search configuration file (e.g., `sphinx.conf`) is in your current directory, you can create and run a container with:
 
 
 ```
-docker run -i -t -v $PWD/tests/sphinx:/usr/local/etc -p 9306 leodido/sphinxsearch searchd
+docker run -i -t -v $PWD:/usr/local/etc -p 9306 leodido/sphinxsearch searchd
 ```
 
