@@ -47,4 +47,5 @@ RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 # expose ports
 EXPOSE 9306
 
-VOLUME ["/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
+# volumes
+VOLUME ["/var/data/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
