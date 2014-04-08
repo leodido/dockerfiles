@@ -1,6 +1,6 @@
 # Sphinx Search
 #
-# Version 0.9.1
+# Version 0.9.2
 
 # ubuntu latest image
 FROM ubuntu:13.10
@@ -16,8 +16,6 @@ RUN apt-get update
 
 # install wget
 RUN apt-get install -y wget
-# install supervisord
-RUN apt-get install -y supervisor
 # install sphinxsearch build dependencies
 RUN apt-get install -y make autoconf automake libtool gcc-4.8 g++-4.8
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
@@ -41,20 +39,19 @@ RUN wget -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | tar zx
 RUN cp -R libstemmer_c/* sphinx-2.1.6-release/libstemmer_c/
 
 # install sphinxsearch
-RUN cd sphinx-2.1.6-release && ./configure --with-libstemmer --with-pgsql --enable-id64 && make && make -j install
+RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc && make && make -j install
 
 # remove sources
 RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 
-# setup supervisor
-RUN mkdir -p /var/log/supervisor
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # expose ports
 EXPOSE 9306
 
-# start supervisor
-CMD ["/usr/bin/supervisord"]
+# scripts
+ADD searchd.sh /
+RUN chmod a+x searchd.sh
+ADD indexall.sh /
+RUN chmod a+x indexall.sh
 
 # volumes
 VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
