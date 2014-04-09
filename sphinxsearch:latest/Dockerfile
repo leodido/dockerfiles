@@ -26,8 +26,10 @@ RUN wget -nv -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.7-release.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
 RUN cp -R libstemmer_c/* sphinx-2.1.7-release/libstemmer_c/
-# install sphinxsearch
-RUN cd sphinx-2.1.7-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc && make -j install
+# compile and install sphinxsearch
+RUN cd sphinx-2.1.7-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc 
+RUN cd sphinx-2.1.7-release && make -j
+RUN cd sphinx-2.1.7-release && make -j install
 # remove sources
 RUN rm -rf sphinx-2.1.7-release/ && rm -rf libstemmer_c/
 # expose ports
