@@ -1,4 +1,4 @@
-Docker file for Sphinx Search [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/docker-sphinxsearch)](https://github.com/igrigorik/ga-beacon)
+Docker file for Sphinx Search [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.1.6)](https://github.com/igrigorik/ga-beacon)
 ============================================
 
 Version: **2.1.6**
