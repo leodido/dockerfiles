@@ -16,7 +16,8 @@ Supports:
 
 ### Exposed ports
 
-* `9306`
+* `9306` aimed to SQL connections
+* `9312` aimed to client connections
 
 ### Mount points
 
@@ -28,7 +29,7 @@ Supports:
 ### Scripts
 
 * [searchd.sh](#searchd.sh), to start `searchd` in the foreground (needed also for real-time indexes)
-* [indexall.sh](#indexall.sh). to index all the plain indexes defined in the shared Sphinx Search configuration
+* [indexall.sh](#indexall.sh), to index all the plain indexes (i.e., `indexer --all`) defined in the shared Sphinx Search configuration
 
 ## Usage
 
@@ -64,7 +65,7 @@ docker ps
 
 ```
 CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                     NAMES
-43b651892dab        leodido/sphinxsearch:2.1.6    /usr/bin/supervisord   3 seconds ago       Up 3 seconds        0.0.0.0:49174->9306/tcp   ecstatic_brown
+ffa651892dab        leodido/sphinxsearch:2.1.6    /usr/bin/supervisord   3 seconds ago       Up 3 seconds        0.0.0.0:49174->9306/tcp   ecstatic_brown
 ```
 
 And eventually try to connect to it:
@@ -100,5 +101,7 @@ Again, if you want to query from the host machine:
 ```
 mysql -h 127.0.0.1 -P 9306
 ```
+
+---
 
 **ENJOY IT**.
