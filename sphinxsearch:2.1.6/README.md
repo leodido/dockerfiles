@@ -64,8 +64,8 @@ docker ps
 ```
 
 ```
-CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                     NAMES
-ffa651892dab        leodido/sphinxsearch:2.1.6    /usr/bin/supervisord   3 seconds ago       Up 3 seconds        0.0.0.0:49174->9306/tcp   ecstatic_brown
+CONTAINER ID    IMAGE                         COMMAND          CREATED             STATUS              PORTS                     			NAMES
+ffa651892dab    leodido/sphinxsearch:2.1.6    ./searchd.sh     3 seconds ago       Up 3 seconds        0.0.0.0:49174->9306/tcp, 9312/tcp   	ecstatic_brown
 ```
 
 And eventually try to connect to it:
