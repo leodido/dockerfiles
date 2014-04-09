@@ -1,57 +1,42 @@
 # Sphinx Search
 #
-# Version 0.9.2
-
-# ubuntu latest image
-FROM ubuntu:13.10
+# @version 	2.1.6
+# @author 	leodido
+FROM centos:latest
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
-# set environment
-ENV DEBIAN_FRONTEND noninteractive
-
-# make sure the package repository is up to date
-RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted" > /etc/apt/sources.list
-RUN apt-get update
-
+# add public key
+RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 # install wget
-RUN apt-get install -y wget
+RUN yum install wget -y -q
 # install sphinxsearch build dependencies
-RUN apt-get install -y make autoconf automake libtool gcc-4.8 g++-4.8
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
-RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+RUN yum install autoconf automake libtool gcc-c++ -y -q
 # install sphinxsearch dependencies for odbc
-RUN apt-get install -y unixodbc-dev 
+RUN yum install unixODBC-devel -y -q
 # install sphinxsearch dependencies for mysql support
-RUN apt-get install -y libmysql++-dev libmysqlclient-dev
-# install sphinxsearch dependencies for postgresql support
-RUN apt-get install -y libpq-dev
+RUN yum install mysql-devel -y -q
+# install sphinxsearch dependencies for postgresql supp
+RUN yum install postgresql-devel -y -q
 # install sphinxsearch dependencies for xml support
-RUN apt-get install -y libexpat1-dev
-
+RUN yum install expat-devel -y -q
 # download libstemmer source and extract it
-RUN wget -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
-
+RUN wget -nv -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 # download sphinxsearch source and extract it
-RUN wget -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | tar zx
-
+RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
 RUN cp -R libstemmer_c/* sphinx-2.1.6-release/libstemmer_c/
-
 # install sphinxsearch
-RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc && make && make -j install
-
+RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc &&
+ make -j install
 # remove sources
 RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
-
 # expose ports
 EXPOSE 9306
-
 # scripts
 ADD searchd.sh /
 RUN chmod a+x searchd.sh
 ADD indexall.sh /
 RUN chmod a+x indexall.sh
-
 # volumes
 VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
