@@ -2,14 +2,14 @@
 #
 # @version 	2.1.7
 # @author 	leodido
-FROM centos:latest
+FROM tianon/centos:latest
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-# install wget
-RUN yum install wget -y -q
+# install utils
+RUN yum install wget tar -y -q
 # install sphinxsearch build dependencies
 RUN yum install autoconf automake libtool gcc-c++ -y -q
 # install sphinxsearch dependencies for odbc
@@ -38,4 +38,4 @@ RUN chmod a+x searchd.sh
 ADD indexall.sh /
 RUN chmod a+x indexall.sh
 # volumes
-VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
+VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"] # TODO: check if needed
