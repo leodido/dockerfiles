@@ -28,7 +28,6 @@ RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | ta
 RUN cp -R libstemmer_c/* sphinx-2.1.6-release/libstemmer_c/
 # install sphinxsearch
 RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc && make -j install
- make -j install
 # remove sources
 RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 # expose ports
