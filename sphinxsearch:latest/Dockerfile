@@ -39,5 +39,8 @@ ADD searchd.sh /
 RUN chmod a+x searchd.sh
 ADD indexall.sh /
 RUN chmod a+x indexall.sh
-# volumes
-VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"] # TODO: check if needed
+# prepare some directories for configs
+RUN mkdir -p /var/spx/sphinx
+RUN mkdir -p /var/log/sphinx
+RUN mkdir -p /var/lib/sphinx 
+RUN mkdir -p /var/run/sphinx

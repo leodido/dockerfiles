@@ -3,33 +3,44 @@ Docker file for Sphinx Search [![Analytics](https://ga-beacon.appspot.com/UA-496
 
 Version: **2.1.6**
 
-A Sphinx Search instance builded from source.
-
 ## Content
 
+A Sphinx Search instance builded from source.
+
 Supports:
- - libstemmer
- - xml (with iconv)
- - postgresql
- - mysql
- - odbc
+
+- libstemmer
+
+- xml (with iconv)
+
+- postgresql
+
+- mysql
+
+- odbc
 
 ### Exposed ports
 
-* `9306` aimed to SQL connections
-* `9312` aimed to client connections
+* `9306` for SQL connections
 
-### Mount points
+* `9312` for client connections
+
+### Default directories
+
+This image provides some directories for your configurations:
 
 * `/var/spx/sphinx`
+
 * `/var/log/sphinx`
+
 * `/var/lib/sphinx`
+
 * `/var/run/sphinx`
 
 ### Scripts
 
 * [searchd.sh](#searchd.sh), to start `searchd` in the foreground (needed also for real-time indexes)
-* [indexall.sh](#indexall.sh), to index all the plain indexes (i.e., `indexer --all`) defined in the shared Sphinx Search configuration
+* [indexall.sh](#indexall.sh), to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
 
 ## Usage
 
@@ -39,33 +50,24 @@ The simplest usage case is to start a Sphinx Search container, attach to it and 
 docker run -i -t leodido/sphinxsearch:2.1.6 /bin/bash
 ```
 
-```
-root@ab2589:/
-```
-
 ### Daemonized usage (1)
 
-Assume now hat we want to index our documents into some real-time indexes.
+Assume hat we want to index our documents into some real-time indexes.
 
-Given a Sphinx Search configuration file (e.g., `sphinx.conf`) in our current directory (i.e., `$PWD`), we have to share the content of `$PWD` with the container (using docker option `-v`).
+Given a Sphinx Search configuration file (e.g., `sphinx.conf`) in our current directory (i.e., `$PWD`), we have to share its content with the container using docker option `-v`.
 
-We also want to expose port 9306 (see option `-p`) to query Sphinx Search from the host machine.
+We also want to expose `9306` port to query Sphinx Search from the host machine.
 
-So, the command to run a daemonized (see option `-d`) instance of this container is:
-
-```
-docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.1.6 ./searchd.sh
-```
-
-Now, verify that it is running ...
+So, the command to run a **daemonized instance** of this container is:
 
 ```
-docker ps
+SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.1.6 ./searchd.sh)
 ```
 
+Now we want to see to which host address it has been linked:
+
 ```
-CONTAINER ID    IMAGE                         COMMAND          CREATED             STATUS              PORTS                     			NAMES
-ffa651892dab    leodido/sphinxsearch:2.1.6    ./searchd.sh     3 seconds ago       Up 3 seconds        0.0.0.0:49174->9306/tcp, 9312/tcp   	ecstatic_brown
+docker port $SS 9306
 ```
 
 And eventually try to connect to it:
@@ -74,7 +76,7 @@ And eventually try to connect to it:
 mysql -h 0.0.0.0 -P 49174
 ```
 
-We can now index document into our Sphinx Search container or perform queries against it.
+We can now index documents into our Sphinx Search container or perform queries against it.
 
 ### Daemonized usage (2)
 
@@ -82,7 +84,7 @@ Assume that we want to index our documents into some plain indexes.
 
 We need:
 
-1. the source files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
+1. the [data source](http://sphinxsearch.com/docs/2.1.7/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
 
 2. a valid Sphinx Search configuration file that defines our plain indexes and their sources
 
@@ -91,10 +93,12 @@ We need:
 So, assuming that in our current directory (i.e., `$PWD`) we have these files, we run a daemonized instance of Sphinx Search as follow:
 
 ```
-docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch:2.1.6 ./indexall.sh
+docker run -i -t \
+		   -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d \
+		   leodido/sphinxsearch:2.1.6 ./indexall.sh
 ```
 
-This way we have indexed our documents (i.e., with `index --all`) and started serving queries through `searchd`.
+This way we have indexed our documents and started serving queries.
 
 Again, if you want to query from the host machine:
 

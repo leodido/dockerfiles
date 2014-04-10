@@ -1,7 +1,7 @@
 Sphinx Search docker image [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:latest)](https://github.com/igrigorik/ga-beacon)
 ============================================
 
-Version: **2.1.7** (corresponding to the **latest** tag)
+Version: **2.1.7**
 
 ## Content
 
@@ -22,13 +22,19 @@ Supports:
 ### Exposed ports
 
 * `9306` for SQL connections
+
 * `9312` for client connections
 
 ### Mount points
 
+This image provides some directories for your configurations:
+
 * `/var/spx/sphinx`
+
 * `/var/log/sphinx`
+
 * `/var/lib/sphinx`
+
 * `/var/run/sphinx`
 
 ### Scripts
@@ -48,7 +54,7 @@ docker run -i -t leodido/sphinxsearch /bin/bash
 
 Assume that we want to index our documents into some real-time indexes.
 
-Given a Sphinx Search configuration file (e.g., `sphinx.conf`) in our current directory (i.e., `$PWD`), we have to share the content of `$PWD` with the container, using docker option `-v`.
+Given a Sphinx Search configuration file (e.g., `sphinx.conf`) in our current directory (i.e., `$PWD`), we have to share its content with the container using docker option `-v`.
 
 We also want to link to exposed `9306` port to query Sphinx Search from the host machine.
 
@@ -70,7 +76,7 @@ And eventually try to connect to it:
 mysql -h 0.0.0.0 -P 49174
 ```
 
-We can now index document into our Sphinx Search container or perform queries against it.
+We can now index documents into our Sphinx Search container or perform queries against it.
 
 ### Daemonized usage (2)
 

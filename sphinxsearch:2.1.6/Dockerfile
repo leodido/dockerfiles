@@ -2,14 +2,14 @@
 #
 # @version 	2.1.6
 # @author 	leodido
-FROM centos:latest
+FROM tianon/centos:latest
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
-# install wget
-RUN yum install wget -y -q
+# install utils
+RUN yum install wget tar -y -q
 # install sphinxsearch build dependencies
 RUN yum install autoconf automake libtool gcc-c++ -y -q
 # install sphinxsearch dependencies for odbc
@@ -26,8 +26,10 @@ RUN wget -nv -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.6-release.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
 RUN cp -R libstemmer_c/* sphinx-2.1.6-release/libstemmer_c/
-# install sphinxsearch
-RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc && make -j install
+# compile and install sphinxsearch
+RUN cd sphinx-2.1.6-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc 
+RUN cd sphinx-2.1.6-release && make
+RUN cd sphinx-2.1.6-release && make install
 # remove sources
 RUN rm -rf sphinx-2.1.6-release/ && rm -rf libstemmer_c/
 # expose ports
@@ -37,5 +39,8 @@ ADD searchd.sh /
 RUN chmod a+x searchd.sh
 ADD indexall.sh /
 RUN chmod a+x indexall.sh
-# volumes
-VOLUME ["/var/spx/sphinx", "/var/log/sphinx", "/var/lib/sphinx", "/var/run/sphinx"]
+# prepare some directories for configs
+RUN mkdir -p /var/spx/sphinx
+RUN mkdir -p /var/log/sphinx
+RUN mkdir -p /var/lib/sphinx 
+RUN mkdir -p /var/run/sphinx
