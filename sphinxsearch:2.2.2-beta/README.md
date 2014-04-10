@@ -1,4 +1,4 @@
-Sphinx Search docker image [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:latest)](https://github.com/igrigorik/ga-beacon)
+Sphinx Search docker image [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.2.2-beta)](https://github.com/igrigorik/ga-beacon)
 ============================================
 
 Version: **2.2.2-beta**
