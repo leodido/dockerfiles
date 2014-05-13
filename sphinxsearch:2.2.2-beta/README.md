@@ -1,5 +1,5 @@
-Sphinx Search docker image [![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.2.2-beta)](https://github.com/igrigorik/ga-beacon)
-============================================
+Sphinx Search docker file
+=========================
 
 Version: **2.2.2-beta**
 
@@ -19,6 +19,12 @@ Supports:
 
 - odbc
 
+- lemmatization
+
+    - `/var/diz/sphinx/ru.pak` (russian dict)
+    - `/var/diz/sphinx/en.pak` (english dict)
+    - `/var/diz/sphinx/de.pak` (deutsche dict)
+
 ### Exposed ports
 
 * `9306` for SQL connections
@@ -36,6 +42,8 @@ This image provides some directories for your configurations:
 * `/var/lib/sphinx`
 
 * `/var/run/sphinx`
+
+* `/var/diz/sphinx`
 
 ### Scripts
 
@@ -93,9 +101,7 @@ We need:
 So, assuming that in our current directory (i.e., `$PWD`) we have these files, we run a daemonized instance of Sphinx Search as follow:
 
 ```
-docker run -i -t \
-		   -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d \
-		   leodido/sphinxsearch:2.2.2-beta ./indexall.sh
+docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch:2.2.2-beta ./indexall.sh
 ```
 
 This way we have indexed our documents and started serving queries.
@@ -108,4 +114,4 @@ mysql -h 127.0.0.1 -P 9306
 
 ---
 
-**ENJOY IT**.
+[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.2.2-beta)](https://github.com/igrigorik/ga-beacon)
