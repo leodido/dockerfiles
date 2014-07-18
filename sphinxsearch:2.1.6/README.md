@@ -9,9 +9,9 @@ A Sphinx Search instance builded from source.
 
 Supports:
 
-- libstemmer
+- stemming (via libstemmer, [link](http://snowball.tartarus.org/download.php))
 
-- xml (with iconv)
+- xml (with expat and iconv)
 
 - postgresql
 
