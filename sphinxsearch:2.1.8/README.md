@@ -116,4 +116,4 @@ mysql -h 127.0.0.1 -P 9306
 
 ---
 
-[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:latest)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.1.8)](https://github.com/igrigorik/ga-beacon)
