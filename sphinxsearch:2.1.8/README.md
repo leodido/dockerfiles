@@ -3,6 +3,8 @@ Sphinx Search docker file
 
 Version: **2.1.8**
 
+You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=42) the official changelog.
+
 ## Content
 
 A Sphinx Search instance builded from source.
