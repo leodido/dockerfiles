@@ -49,8 +49,8 @@ This image provides some directories for your configurations:
 
 ### Scripts
 
-* [searchd.sh](#searchd.sh), to start `searchd` in the foreground (needed also for real-time indexes)
-* [indexall.sh](#indexall.sh), to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
+* [searchd.sh](/searchd.sh), to start `searchd` in the foreground (needed also for real-time indexes)
+* [indexall.sh](/indexall.sh), to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
 
 ## Usage
 
