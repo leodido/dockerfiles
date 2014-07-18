@@ -9,15 +9,17 @@ A Sphinx Search instance builded from source.
 
 Supports:
 
-- libstemmer
+- stemming (via libstemmer, [link](http://snowball.tartarus.org/download.php))
 
-- xml (with iconv)
+- xml (with expat and iconv)
 
 - postgresql
 
 - mysql
 
 - odbc
+
+- regular expression filter (via RE2 engine, [link](https://code.google.com/p/re2))
 
 - lemmatization
 
