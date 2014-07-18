@@ -50,7 +50,7 @@ This image provides some directories for your configurations:
 
 ## Usage
 
-The simplest usage case is to start a Sphinx Search container, attach to it and do whatever you want inside it:
+The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want inside it:
 
 ```
 docker run -i -t leodido/sphinxsearch:2.1.6 /bin/bash

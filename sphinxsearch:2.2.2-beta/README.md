@@ -23,7 +23,7 @@ Supports:
 
     - `/var/diz/sphinx/ru.pak` (russian dict)
     - `/var/diz/sphinx/en.pak` (english dict)
-    - `/var/diz/sphinx/de.pak` (deutsche dict)
+    - `/var/diz/sphinx/de.pak` (deutsch dict)
 
 ### Exposed ports
 
@@ -52,7 +52,7 @@ This image provides some directories for your configurations:
 
 ## Usage
 
-The simplest usage case is to start a Sphinx Search container, attach to it and do whatever you want with it:
+The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want with it:
 
 ```
 docker run -i -t leodido/sphinxsearch /bin/bash
