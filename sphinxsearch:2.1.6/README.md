@@ -3,6 +3,8 @@ Sphinx Search docker file
 
 Version: **2.1.6**
 
+You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=39) the official changelog.
+
 ## Content
 
 A Sphinx Search instance builded from source.
@@ -33,7 +35,7 @@ Supports:
 
 This image provides some directories for your configurations:
 
-* `/var/spx/sphinx`
+* `/var/idx/sphinx`
 
 * `/var/log/sphinx`
 

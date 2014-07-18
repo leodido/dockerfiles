@@ -39,7 +39,7 @@ RUN rm -rf sphinx-2.2.3-beta/ && rm -rf libstemmer_c/ && rm -rf re2/
 # expose ports
 EXPOSE 9306 9312
 # prepare directories
-RUN mkdir -p /var/spx/sphinx
+RUN mkdir -p /var/idx/sphinx
 RUN mkdir -p /var/log/sphinx
 RUN mkdir -p /var/lib/sphinx 
 RUN mkdir -p /var/run/sphinx

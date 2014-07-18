@@ -37,7 +37,7 @@ Supports:
 
 This image provides some directories for your configurations:
 
-* `/var/spx/sphinx`
+* `/var/idx/sphinx`
 
 * `/var/log/sphinx`
 
