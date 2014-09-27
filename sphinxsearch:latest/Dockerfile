@@ -1,8 +1,8 @@
 # Sphinx Search
 #
-# @version 	2.1.9
-# @author 	leodido
-FROM tianon/centos:latest
+# @version 	latest
+# @author 	leodido <leodidonato@gmail.com>
+FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
@@ -25,17 +25,19 @@ RUN wget -nv -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 # download re2 source and extract it
 RUN wget -nv -O - https://re2.googlecode.com/files/re2-20140304.tgz | tar zx
 # download sphinxsearch source and extract it
-RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.9-release.tar.gz | tar zx
+RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.2.4-release.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
-RUN cp -R libstemmer_c/* sphinx-2.1.9-release/libstemmer_c/
-# copy libstemmer inside sphinxsearch source code
-RUN cp -R re2/* sphinx-2.1.9-release/libre2/
+RUN cp -R libstemmer_c/* sphinx-2.2.4-release/libstemmer_c/
+# fix for libstemmer changes
+RUN sed -i -e 's/stem_ISO_8859_1_hungarian/stem_ISO_8859_2_hungarian/g' sphinx-2.2.4-release/libstemmer_c/Makefile.in
+# copy re2 library inside sphinxsearch source code
+RUN cp -R re2/* sphinx-2.2.4-release/libre2/
 # compile and install sphinxsearch
-RUN cd sphinx-2.1.9-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc --with-re2
-RUN cd sphinx-2.1.9-release && make
-RUN cd sphinx-2.1.9-release && make install
+RUN cd sphinx-2.2.4-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc --with-re2
+RUN cd sphinx-2.2.4-release && make
+RUN cd sphinx-2.2.4-release && make install
 # remove sources
-RUN rm -rf sphinx-2.1.9-release/ && rm -rf libstemmer_c/ && rm -rf re2/
+RUN rm -rf sphinx-2.2.4-release/ && rm -rf libstemmer_c/ && rm -rf re2/
 # expose ports
 EXPOSE 9306 9312
 # prepare directories
@@ -51,4 +53,3 @@ ADD searchd.sh /
 RUN chmod a+x searchd.sh
 ADD indexall.sh /
 RUN chmod a+x indexall.sh
-

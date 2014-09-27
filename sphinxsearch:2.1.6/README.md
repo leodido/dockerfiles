@@ -50,6 +50,22 @@ This image provides some directories for your configurations:
 * `searchd.sh`, to start `searchd` in the foreground (needed also for real-time indexes)
 * `indexall.sh`, to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
 
+## Installation
+
+You can clone this repository and manually build it.
+
+```
+cd dockerfiles/sphinxsearch\:2.1.6
+docker build -t leodido/sphinxsearch:2.1.6 .
+```
+
+Otherwise you can pull this image from docker index.
+
+```
+docker pull leodido/sphinxsearch:2.1.6
+```
+
+
 ## Usage
 
 The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want inside it:

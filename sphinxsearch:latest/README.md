@@ -1,9 +1,9 @@
 Sphinx Search docker file
 =========================
 
-Version: **2.1.9**
+Version: **2.2.4**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=43) the official changelog.
+You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=44) the official changelog.
 
 ## Content
 
@@ -52,6 +52,21 @@ This image provides some directories for your configurations:
 * `searchd.sh`, to start `searchd` in the foreground (needed also for real-time indexes)
 * `indexall.sh`, to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
 
+## Installation
+
+You can clone this repository and manually build it.
+
+```
+cd dockerfiles/sphinxsearch\:latest
+docker build -t leodido/sphinxsearch:latest .
+```
+
+Otherwise you can pull this image from docker index.
+
+```
+docker pull leodido/sphinxsearch:latest
+```
+
 ## Usage
 
 The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want with it:
@@ -94,7 +109,7 @@ Assume that we want to index our documents into some plain indexes.
 
 We need:
 
-1. the [data source](http://sphinxsearch.com/docs/2.1.9/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
+1. the [data source](http://sphinxsearch.com/docs/2.2.4/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
 
 2. a valid Sphinx Search configuration file that defines our plain indexes and their sources
 

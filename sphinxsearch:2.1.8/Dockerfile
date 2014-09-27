@@ -1,8 +1,8 @@
 # Sphinx Search
 #
 # @version 	2.1.8
-# @author 	leodido
-FROM tianon/centos:latest
+# @author 	leodido <leodidonato@gmail.com>
+FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
@@ -28,6 +28,8 @@ RUN wget -nv -O - https://re2.googlecode.com/files/re2-20140304.tgz | tar zx
 RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.1.8-release.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
 RUN cp -R libstemmer_c/* sphinx-2.1.8-release/libstemmer_c/
+# fix for libstemmer changes
+RUN sed -i -e 's/stem_ISO_8859_1_hungarian/stem_ISO_8859_2_hungarian/g' sphinx-2.1.8-release/libstemmer_c/Makefile.in
 # copy libstemmer inside sphinxsearch source code
 RUN cp -R re2/* sphinx-2.1.8-release/libre2/
 # compile and install sphinxsearch

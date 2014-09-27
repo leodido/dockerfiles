@@ -54,12 +54,27 @@ This image provides some directories for your configurations:
 * `searchd.sh`, to start `searchd` in the foreground (needed also for real-time indexes)
 * `indexall.sh`, to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
 
+## Installation
+
+You can clone this repository and manually build it.
+
+```
+cd dockerfiles/sphinxsearch\:2.2.3-beta
+docker build -t leodido/sphinxsearch:2.2.3-beta .
+```
+
+Otherwise you can pull this image from docker index.
+
+```
+docker pull leodido/sphinxsearch:2.2.3-beta
+```
+
 ## Usage
 
 The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want with it:
 
 ```
-docker run -i -t leodido/sphinxsearch /bin/bash
+docker run -i -t leodido/sphinxsearch:2.2.3-beta /bin/bash
 ```
 
 ### Daemonized usage (1)
@@ -73,7 +88,7 @@ We also want to link to exposed `9306` port to query Sphinx Search from the host
 So, the command to run a **daemonized instance** of this container is:
 
 ```
-SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch ./searchd.sh)
+SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.2.3-beta ./searchd.sh)
 ```
 
 Now we want to see to which host address it has been linked:
