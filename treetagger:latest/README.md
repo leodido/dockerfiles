@@ -4,6 +4,65 @@ This repo is a docker image which packages a ready to use [TreeTagger](http://ww
 
 Once installed it you will not have to manually install TreeTagger.
 
+What it is
+----------
+
+TreeTagger is a tool for annotating text with part-of-speech ([POS tagging](http://en.wikipedia.org/wiki/Part-of-speech_tagging)) and lemma information.
+
+TreeTagger consists of two programs:
+
+1. `train-tree-tagger`
+
+    used to create a parameter file from a lexicon and a handtagged corpus. 
+    
+2. `tree-tagger` 
+
+    used to annotate the text with part-of-speech tags, given a parameter file and a text file as arguments.
+
+Primary files contained in this package are:
+
+- training program at `bin/train-tree-tagger`
+
+- tagger program at `bin/tree-tagger`       
+
+- program for tokenization (used by the shell scripts) at `bin/separate-punctuation`
+
+- shell scripts which simplify tagging at `cmd` directory:
+
+    e.g., `tree-tagger-italian`, `tree-tagger-german`, `tagger-chunker-english`, ...
+    
+- parameter files, chunker parameter files, and abbreviations, installed into the `lib` directory
+
+- docs about TreeTagger is in `doc` directory
+
+- some of the language tagsets are in the `tagsets` directory
+
+See yourself the content of `treetagger-3.2` directory inside the docker image:
+
+```bash
+docker run -i -t leodido/treetagger:latest ls treetagger-3.2
+```
+
+Already trained (and so supported) languages are:
+
+1. Bulgarian
+2. Dutch
+3. English
+4. Estonian
+5. Finnish
+6. French
+7. Galician
+8. German
+9. Italian
+10. Latin
+11. Polish
+12. Russian
+13. Slovak
+14. Spanish
+15. Swahili
+16. Mongolian (only parameter file provided, no scripts)
+
+
 Installation
 ------------
 
@@ -71,65 +130,8 @@ Test	NN	Test
 .	$.	.
 ```
 
-What it is
-----------
-
-TreeTagger is a tool for annotating text with part-of-speech ([POS tagging](http://en.wikipedia.org/wiki/Part-of-speech_tagging)) and lemma information.
-
-TreeTagger consists of two programs:
-
-1. `train-tree-tagger`
-
-    used to create a parameter file from a lexicon and a handtagged corpus. 
-    
-2. `tree-tagger` 
-
-    used to annotate the text with part-of-speech tags, given a parameter file and a text file as arguments.
-
-Primary files contained in this package are:
-
-- training program at `bin/train-tree-tagger`
-
-- tagger program at `bin/tree-tagger`       
-
-- program for tokenization (used by the shell scripts) at `bin/separate-punctuation`
-
-- shell scripts which simplify tagging at `cmd` directory:
-
-    e.g., `tree-tagger-italian`, `tree-tagger-german`, `tagger-chunker-english`, ...
-    
-- parameter files, chunker parameter files, and abbreviations, installed into the `lib` directory
-
-- docs about TreeTagger is in `doc` directory
-
-- some of the language tagsets are in the `tagsets` directory
-
-See yourself the content of `treetagger-latest` directory inside the docker image:
-
-```bash
-docker run -i -t leodido/treetagger:latest ls treetagger-latest
-```
-
-Already trained (and so supported) languages are:
-
-1. Bulgarian
-2. Dutch
-3. English
-4. Estonian
-5. Finnish
-6. French
-7. Galician
-8. German
-9. Italian
-10. Latin
-11. Polish
-12. Russian
-13. Slovak
-14. Spanish
-15. Swahili
-16. Mongolian (only parameter file provided, no scripts)
-
-### TODO
+Todos
+---------
 
 - Add support for Chinese, Spoken French, and Portuguese.
 - Train other chunkers for major languages (e.g., italian, spanish)
