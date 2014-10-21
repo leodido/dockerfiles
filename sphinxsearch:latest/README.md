@@ -1,9 +1,9 @@
 Sphinx Search docker file
 =========================
 
-Version: **2.2.4**
+Version: **2.2.5**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=44) the official changelog.
+You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=46) the official changelog.
 
 ## Content
 
@@ -109,7 +109,7 @@ Assume that we want to index our documents into some plain indexes.
 
 We need:
 
-1. the [data source](http://sphinxsearch.com/docs/2.2.4/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
+1. the [data source](http://sphinxsearch.com/docs/2.2.5/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
 
 2. a valid Sphinx Search configuration file that defines our plain indexes and their sources
 
