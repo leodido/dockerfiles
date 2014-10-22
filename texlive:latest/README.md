@@ -1,7 +1,7 @@
 TeX Live docker file
 ====================
 
-Version: **2014**
+Version: **latest** (i.e., **2014**)
 
 Installation scheme: **full**
 
@@ -54,7 +54,7 @@ Suppose you have you **TeX** file named `sample.tex` into a `test` directory in 
 With this docker image you can know compile it this way:
 
 ```
-$ docker run -it -v $HOME/test:/test leodido/texlive:2014 pdflatex -output-directory=/test test/sample.tex
+$ docker run -it -v $HOME/test:/test leodido/texlive:latest pdflatex -output-directory=/test test/sample.tex
 ```
 
 If compilation succeeded, into your `$HOME/test` directory you will have the resulting files (e.g., `sample.pdf`).
@@ -67,13 +67,13 @@ You can clone this repository and manually build it.
 
 ```
 cd dockerfiles/texlive\:2014
-docker build -t leodido/texlive:2014 .
+docker build -t leodido/texlive:latest .
 ```
 
 Otherwise you can pull this image from the docker index.
 
 ```
-docker pull leodido/texlive:2014
+docker pull leodido/texlive:latest
 ```
 
 Credits
@@ -83,4 +83,4 @@ Credits
 
 ---
 
-[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/texlive:2014)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/texlive:latest)](https://github.com/igrigorik/ga-beacon)
