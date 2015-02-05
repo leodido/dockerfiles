@@ -9,7 +9,7 @@ See internal READMEs for further information.
 
 SphinxSearch is an open source search engine designed to provide full-text search functionality to client applications.
 
-- Stables: from 2.1.6 to latest (2.2.5)
+- Stables: from 2.1.6 to latest (2.2.7)
 - Betas: from 2.2.1-beta to 2.2.3-beta
 
 Also available on [docker index](https://registry.hub.docker.com/u/leodido/sphinxsearch).
@@ -58,7 +58,7 @@ $ docker pull leodido/texlive:2014
 
 The code and docker images are licensed under the terms of [MIT license](#LICENSE).
 
-Copyright (c) 2014 [Leo Di Donato](http://www.github.com/leodido).
+Copyright (c) 2015 [Leo Di Donato](http://www.github.com/leodido).
 
 ---
 

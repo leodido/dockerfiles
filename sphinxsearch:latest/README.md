@@ -1,9 +1,9 @@
 Sphinx Search docker file
 =========================
 
-Version: **2.2.5**
+Version: **2.2.7**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=46) the official changelog.
+You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=48) the official changelog.
 
 ## Content
 
@@ -26,6 +26,8 @@ Supports:
 - lemmatization
 
     - `/var/diz/sphinx/ru.pak` (russian dict)
+    - `/var/diz/sphinx/en.pak` (english dict)
+    - `/var/diz/sphinx/de.pak` (deutsch dict)
 
 ### Exposed ports
 
@@ -57,14 +59,14 @@ This image provides some directories for your configurations:
 You can clone this repository and manually build it.
 
 ```
-cd dockerfiles/sphinxsearch\:latest
-docker build -t leodido/sphinxsearch:latest .
+cd dockerfiles/sphinxsearch\:2.2.7
+docker build -t leodido/sphinxsearch:2.2.7 .
 ```
 
 Otherwise you can pull this image from docker index.
 
 ```
-docker pull leodido/sphinxsearch:latest
+docker pull leodido/sphinxsearch:2.2.7
 ```
 
 ## Usage
@@ -72,7 +74,7 @@ docker pull leodido/sphinxsearch:latest
 The simplest use case is to start a Sphinx Search container, attach to it and do whatever you want with it:
 
 ```
-docker run -i -t leodido/sphinxsearch /bin/bash
+docker run -i -t leodido/sphinxsearch:2.2.7 /bin/bash
 ```
 
 ### Daemonized usage (1)
@@ -86,7 +88,7 @@ We also want to link to exposed `9306` port to query Sphinx Search from the host
 So, the command to run a **daemonized instance** of this container is:
 
 ```
-SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch ./searchd.sh)
+SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.2.7 ./searchd.sh)
 ```
 
 Now we want to see to which host address it has been linked:
@@ -109,7 +111,7 @@ Assume that we want to index our documents into some plain indexes.
 
 We need:
 
-1. the [data source](http://sphinxsearch.com/docs/2.2.5/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
+1. the [data source](http://sphinxsearch.com/docs/2.2.7/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
 
 2. a valid Sphinx Search configuration file that defines our plain indexes and their sources
 
@@ -118,7 +120,7 @@ We need:
 So, assuming that in our current directory (i.e., `$PWD`) we have these files, we run a daemonized instance of Sphinx Search as follow:
 
 ```
-docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch ./indexall.sh
+docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch:2.2.7 ./indexall.sh
 ```
 
 This way we have indexed our documents and started serving queries.
@@ -131,4 +133,4 @@ mysql -h 127.0.0.1 -P 9306
 
 ---
 
-[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:latest)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-49657176-1/dockerfiles/sphinxsearch:2.2.7)](https://github.com/igrigorik/ga-beacon)
