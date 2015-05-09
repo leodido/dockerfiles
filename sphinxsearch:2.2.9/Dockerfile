@@ -1,19 +1,13 @@
 # Sphinx Search
 #
-# @version 	2.2.8
+# @version 	2.2.9
 # @author 	leodido <leodidonato@gmail.com>
 FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
 # environment variables
-ENV RE2_VERSION 2015-05-01
-ENV SPHINX_VERSION 2.2.9-release
-ENV SPHINX_INDEX_DIR /var/idx/sphinx
-ENV SPHINX_LOG_DIR /var/log/sphinx
-ENV SPHINX_LIB_DIR /var/lib/sphinx
-ENV SPHINX_RUN_DIR /var/run/sphinx
-ENV SPHINX_DIZ_DIR /var/diz/sphinx
+ENV SPHINX_VERSION=2.2.9-release RE2_VERSION=2015-05-01 SPHINX_INDEX_DIR=/var/idx/sphinx SPHINX_LOG_DIR=/var/log/sphinx SPHINX_LIB_DIR=/var/lib/sphinx SPHINX_RUN_DIR=/var/run/sphinx SPHINX_DIZ_DIR=/var/diz/sphinx
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 # install utils
@@ -49,21 +43,16 @@ RUN rm -rf sphinx-${SPHINX_VERSION}/ && rm -rf libstemmer_c/ && rm -rf re2-${RE2
 # expose ports
 EXPOSE 9312 9306
 # prepare directories
-RUN mkdir -p ${SPHINX_INDEX_DIR}
-RUN mkdir -p ${SPHINX_LOG_DIR}
-RUN mkdir -p ${SPHINX_LIB_DIR}
-RUN mkdir -p ${SPHINX_RUN_DIR}
-RUN mkdir -p ${SPHINX_DIZ_DIR}
+RUN mkdir -p ${SPHINX_INDEX_DIR} && \
+    mkdir -p ${SPHINX_LOG_DIR} && \
+    mkdir -p ${SPHINX_LIB_DIR} && \
+    mkdir -p ${SPHINX_RUN_DIR} && \
+    mkdir -p ${SPHINX_DIZ_DIR}
 # dicts
 ADD dicts ${SPHINX_DIZ_DIR}
 # expose directories
-VOLUME ${SPHINX_INDEX_DIR}
-VOLUME ${SPHINX_LOG_DIR}
-VOLUME ${SPHINX_LIB_DIR}
-VOLUME ${SPHINX_RUN_DIR}
-VOLUME ${SPHINX_DIZ_DIR}
+VOLUME ["${SPHINX_INDEX_DIR}", "${SPHINX_LOG_DIR}", "${SPHINX_LIB_DIR}", "${SPHINX_RUN_DIR}", "{SPHINX_DIZ_DIR}"]
 # scripts
 ADD searchd.sh /bin/
-RUN chmod a+x /bin/searchd.sh
 ADD indexall.sh /bin/
-RUN chmod a+x /bin/indexall.sh
+RUN chmod a+x /bin/searchd.sh && chmod a+x /bin/indexall.sh
