@@ -1,11 +1,19 @@
 # Sphinx Search
 #
-# @version 	2.2.7
+# @version 	2.2.8
 # @author 	leodido <leodidonato@gmail.com>
 FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
+# environment variables
+ENV RE2_VERSION 2015-05-01
+ENV SPHINX_VERSION 2.2.9-release
+ENV SPHINX_INDEX_DIR /var/idx/sphinx
+ENV SPHINX_LOG_DIR /var/log/sphinx
+ENV SPHINX_LIB_DIR /var/lib/sphinx
+ENV SPHINX_RUN_DIR /var/run/sphinx
+ENV SPHINX_DIZ_DIR /var/diz/sphinx
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 # install utils
@@ -23,33 +31,39 @@ RUN yum install expat-devel -y -q
 # download libstemmer source and extract it
 RUN wget -nv -O - http://snowball.tartarus.org/dist/libstemmer_c.tgz | tar zx
 # download re2 source and extract it
-RUN wget -nv -O - https://re2.googlecode.com/files/re2-20140304.tgz | tar zx
+RUN wget -nv -O - https://github.com/google/re2/archive/${RE2_VERSION}.tar.gz | tar zx
 # download sphinxsearch source and extract it
-RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-2.2.7-release.tar.gz | tar zx
+RUN wget -nv -O - http://sphinxsearch.com/files/sphinx-${SPHINX_VERSION}.tar.gz | tar zx
 # copy libstemmer inside sphinxsearch source code
-RUN cp -R libstemmer_c/* sphinx-2.2.7-release/libstemmer_c/
+RUN cp -R libstemmer_c/* sphinx-${SPHINX_VERSION}/libstemmer_c/
 # fix for libstemmer changes
-RUN sed -i -e 's/stem_ISO_8859_1_hungarian/stem_ISO_8859_2_hungarian/g' sphinx-2.2.7-release/libstemmer_c/Makefile.in
+RUN sed -i -e 's/stem_ISO_8859_1_hungarian/stem_ISO_8859_2_hungarian/g' sphinx-${SPHINX_VERSION}/libstemmer_c/Makefile.in
 # copy re2 library inside sphinxsearch source code
-RUN cp -R re2/* sphinx-2.2.7-release/libre2/
+RUN cp -R re2-${RE2_VERSION}/* sphinx-${SPHINX_VERSION}/libre2/
 # compile and install sphinxsearch
-RUN cd sphinx-2.2.7-release && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc --with-re2
-RUN cd sphinx-2.2.7-release && make
-RUN cd sphinx-2.2.7-release && make install
+RUN cd sphinx-${SPHINX_VERSION} && ./configure --enable-id64 --with-mysql --with-pgsql --with-libstemmer --with-libexpat --with-iconv --with-unixodbc --with-re2
+RUN cd sphinx-${SPHINX_VERSION} && make
+RUN cd sphinx-${SPHINX_VERSION} && make install
 # remove sources
-RUN rm -rf sphinx-2.2.7-release/ && rm -rf libstemmer_c/ && rm -rf re2/
+RUN rm -rf sphinx-${SPHINX_VERSION}/ && rm -rf libstemmer_c/ && rm -rf re2-${RE2_VERSION}/
 # expose ports
-EXPOSE 9306 9312
+EXPOSE 9312 9306
 # prepare directories
-RUN mkdir -p /var/idx/sphinx
-RUN mkdir -p /var/log/sphinx
-RUN mkdir -p /var/lib/sphinx 
-RUN mkdir -p /var/run/sphinx
-RUN mkdir -p /var/diz/sphinx
+RUN mkdir -p ${SPHINX_INDEX_DIR}
+RUN mkdir -p ${SPHINX_LOG_DIR}
+RUN mkdir -p ${SPHINX_LIB_DIR}
+RUN mkdir -p ${SPHINX_RUN_DIR}
+RUN mkdir -p ${SPHINX_DIZ_DIR}
 # dicts
-ADD dicts /var/diz/sphinx
+ADD dicts ${SPHINX_DIZ_DIR}
+# expose directories
+VOLUME ${SPHINX_INDEX_DIR}
+VOLUME ${SPHINX_LOG_DIR}
+VOLUME ${SPHINX_LIB_DIR}
+VOLUME ${SPHINX_RUN_DIR}
+VOLUME ${SPHINX_DIZ_DIR}
 # scripts
-ADD searchd.sh /
-RUN chmod a+x searchd.sh
-ADD indexall.sh /
-RUN chmod a+x indexall.sh
+ADD searchd.sh /bin/
+RUN chmod a+x /bin/searchd.sh
+ADD indexall.sh /bin/
+RUN chmod a+x /bin/indexall.sh

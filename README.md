@@ -9,8 +9,8 @@ See internal READMEs for further information.
 
 SphinxSearch is an open source search engine designed to provide full-text search functionality to client applications.
 
-- Stables: from 2.1.6 to latest (2.2.7)
-- Betas: from 2.2.1-beta to 2.2.3-beta
+- Stables: from 2.1.6 to latest (2.2.9)
+- Betas: from 2.2.1-beta to 2.3.1-beta
 
 Also available on [docker index](https://registry.hub.docker.com/u/leodido/sphinxsearch).
 
