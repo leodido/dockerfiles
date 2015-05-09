@@ -3,7 +3,7 @@ Sphinx Search docker file
 
 Version: **2.2.9**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=49) the official changelog.
+You can read [here](http://sphinxsearch.com/blog/2015/04/22/sphinx-2-2-9-release/) the official blog post.
 
 ## Content
 
