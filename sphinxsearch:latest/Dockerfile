@@ -18,7 +18,7 @@ RUN yum install autoconf automake libtool gcc-c++ -y -q
 RUN yum install unixODBC-devel -y -q
 # install sphinxsearch dependencies for mysql support
 RUN yum install mysql-devel -y -q
-# install sphinxsearch dependencies for postgresql supp
+# install sphinxsearch dependencies for postgresql support
 RUN yum install postgresql-devel -y -q
 # install sphinxsearch dependencies for xml support
 RUN yum install expat-devel -y -q
@@ -51,7 +51,7 @@ RUN mkdir -p ${SPHINX_INDEX_DIR} && \
 # dicts
 ADD dicts ${SPHINX_DIZ_DIR}
 # expose directories
-VOLUME ["${SPHINX_INDEX_DIR}", "${SPHINX_LOG_DIR}", "${SPHINX_LIB_DIR}", "${SPHINX_RUN_DIR}", "{SPHINX_DIZ_DIR}"]
+VOLUME ["${SPHINX_INDEX_DIR}", "${SPHINX_LOG_DIR}", "${SPHINX_LIB_DIR}", "${SPHINX_RUN_DIR}", "${SPHINX_DIZ_DIR}"]
 # scripts
 ADD searchd.sh /bin/
 ADD indexall.sh /bin/

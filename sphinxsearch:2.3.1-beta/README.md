@@ -3,7 +3,7 @@ Sphinx Search docker file
 
 Version: **2.3.1-beta**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=50) the official changelog.
+You can read [the official changelog](http://sphinxsearch.com/bugs/changelog_page.php) the official changelog for details on changes.
 
 ## Content
 
@@ -21,7 +21,7 @@ Supports:
 
 - odbc
 
-- regular expression filter (via RE2 engine, version 2015-05-01, [link](https://github.com/google/re2))
+- regular expression filter (via RE2 engine, version 2015-11-01, [link](https://github.com/google/re2))
 
 - lemmatization
 
