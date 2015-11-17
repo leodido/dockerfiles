@@ -1,13 +1,13 @@
 # Sphinx Search
 #
-# @version 	2.2.9
+# @version 	2.2.10
 # @author 	leodido <leodidonato@gmail.com>
 FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
 # environment variables
-ENV SPHINX_VERSION=2.2.9-release RE2_VERSION=2015-05-01 SPHINX_INDEX_DIR=/var/idx/sphinx SPHINX_LOG_DIR=/var/log/sphinx SPHINX_LIB_DIR=/var/lib/sphinx SPHINX_RUN_DIR=/var/run/sphinx SPHINX_DIZ_DIR=/var/diz/sphinx
+ENV SPHINX_VERSION=2.2.10-release RE2_VERSION=2015-11-01 SPHINX_INDEX_DIR=/var/idx/sphinx SPHINX_LOG_DIR=/var/log/sphinx SPHINX_LIB_DIR=/var/lib/sphinx SPHINX_RUN_DIR=/var/run/sphinx SPHINX_DIZ_DIR=/var/diz/sphinx
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 # install utils
