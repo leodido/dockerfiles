@@ -3,7 +3,7 @@ Sphinx Search docker file
 
 Version: **2.1.7**
 
-You can read [here](http://sphinxsearch.com/bugs/changelog_page.php?version_id=41) the official changelog.
+You can read [the official changelog](http://sphinxsearch.com/bugs/changelog_page.php) the official changelog for details on changes.
 
 ## Content
 
@@ -21,19 +21,23 @@ Supports:
 
 - odbc
 
+- regular expression filter (via RE2 engine, version 2015-11-01, [link](https://github.com/google/re2))
+
 - lemmatization
 
     - `/var/diz/sphinx/ru.pak` (russian dict)
+    - `/var/diz/sphinx/en.pak` (english dict)
+    - `/var/diz/sphinx/de.pak` (deutsch dict)
 
 ### Exposed ports
 
-* `9306` for SQL connections
-
 * `9312` for client connections
+
+* `9306` for SQL connections
 
 ### Mount points
 
-This image provides some directories for your configurations:
+This image provides some directories for configurations, logs and other files:
 
 * `/var/idx/sphinx`
 
@@ -45,10 +49,25 @@ This image provides some directories for your configurations:
 
 * `/var/diz/sphinx`
 
+All this directories are **data volumes**.
+
 ### Scripts
+
+The available scripts are:
 
 * `searchd.sh`, to start `searchd` in the foreground (needed also for real-time indexes)
 * `indexall.sh`, to index all the plain indexes (i.e., `indexer --all`) defined in the configuration
+
+## Path
+
+Both scripts and Sphinx Search's tools (e.g., the `spelldump` tool) are available from the PATH.
+
+To list all Sphinx Search's tool you can execute:
+
+```
+docker run -it leodido/sphinxsearch:2.1.7 ls /usr/local/bin
+# indexer  indextool  searchd  spelldump	wordbreaker
+```
 
 ## Installation
 
@@ -64,7 +83,6 @@ Otherwise you can pull this image from docker index.
 ```
 docker pull leodido/sphinxsearch:2.1.7
 ```
-
 
 ## Usage
 
@@ -85,13 +103,13 @@ We also want to link to exposed `9306` port to query Sphinx Search from the host
 So, the command to run a **daemonized instance** of this container is:
 
 ```
-SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.1.7 ./searchd.sh)
+SS=$(docker run -i -t -v $PWD:/usr/local/etc -p 9306 -d leodido/sphinxsearch:2.1.7 searchd.sh)
 ```
 
 Now we want to see to which host address it has been linked:
 
 ```
-docker port $SS 9306
+docker port $SS 9306 # which returns 49174
 ```
 
 And eventually try to connect to it:
@@ -108,7 +126,7 @@ Assume that we want to index our documents into some plain indexes.
 
 We need:
 
-1. the [data source](http://sphinxsearch.com/docs/2.1.7/xmlpipe2.html) files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
+1. the data source files (e.g. XML files structured as demanded by the Sphinx Search's xmlpipe2 driver)
 
 2. a valid Sphinx Search configuration file that defines our plain indexes and their sources
 
@@ -117,7 +135,7 @@ We need:
 So, assuming that in our current directory (i.e., `$PWD`) we have these files, we run a daemonized instance of Sphinx Search as follow:
 
 ```
-docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch:2.1.7 ./indexall.sh
+docker run -i -t -v $PWD:/usr/local/etc -p 127.0.0.1:9306:9306 -d leodido/sphinxsearch:2.1.7 indexall.sh
 ```
 
 This way we have indexed our documents and started serving queries.

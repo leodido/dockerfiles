@@ -1,13 +1,13 @@
 # Sphinx Search
 #
-# @version 	2.2.9
+# @version 	2.2.10
 # @author 	leodido <leodidonato@gmail.com>
 FROM centos:centos6
 
 MAINTAINER Leonardo Di Donato, leodidonato@gmail.com
 
 # environment variables
-ENV SPHINX_VERSION=2.2.9-release RE2_VERSION=2015-05-01 SPHINX_INDEX_DIR=/var/idx/sphinx SPHINX_LOG_DIR=/var/log/sphinx SPHINX_LIB_DIR=/var/lib/sphinx SPHINX_RUN_DIR=/var/run/sphinx SPHINX_DIZ_DIR=/var/diz/sphinx
+ENV SPHINX_VERSION=2.2.10-release RE2_VERSION=2015-11-01 SPHINX_INDEX_DIR=/var/idx/sphinx SPHINX_LOG_DIR=/var/log/sphinx SPHINX_LIB_DIR=/var/lib/sphinx SPHINX_RUN_DIR=/var/run/sphinx SPHINX_DIZ_DIR=/var/diz/sphinx
 # add public key
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 # install utils
@@ -18,7 +18,7 @@ RUN yum install autoconf automake libtool gcc-c++ -y -q
 RUN yum install unixODBC-devel -y -q
 # install sphinxsearch dependencies for mysql support
 RUN yum install mysql-devel -y -q
-# install sphinxsearch dependencies for postgresql supp
+# install sphinxsearch dependencies for postgresql support
 RUN yum install postgresql-devel -y -q
 # install sphinxsearch dependencies for xml support
 RUN yum install expat-devel -y -q
@@ -51,7 +51,7 @@ RUN mkdir -p ${SPHINX_INDEX_DIR} && \
 # dicts
 ADD dicts ${SPHINX_DIZ_DIR}
 # expose directories
-VOLUME ["${SPHINX_INDEX_DIR}", "${SPHINX_LOG_DIR}", "${SPHINX_LIB_DIR}", "${SPHINX_RUN_DIR}", "{SPHINX_DIZ_DIR}"]
+VOLUME ["${SPHINX_INDEX_DIR}", "${SPHINX_LOG_DIR}", "${SPHINX_LIB_DIR}", "${SPHINX_RUN_DIR}", "${SPHINX_DIZ_DIR}"]
 # scripts
 ADD searchd.sh /bin/
 ADD indexall.sh /bin/
