@@ -20,7 +20,7 @@ versions=( "${versions[@]#sphinxsearch:}" )
 mkdir -p .dicts
 for dict_url in "${dictionaries[@]}"; do
 	filename="${dict_url##*/}"
-	curl -z ".dicts/$filename" -o ".dicts/$filename" "$dict_url"
+	curl -s -z ".dicts/$filename" -o ".dicts/$filename" "$dict_url"
 done
 
 for version in "${versions[@]}"; do
@@ -37,9 +37,9 @@ for version in "${versions[@]}"; do
 
 		mkdir -p "sphinxsearch:$version/dicts/"
 		cp .dicts/* "sphinxsearch:$version/dicts/"
-		
-		sed 's/%%SPHINX_VERSION%%/'$version'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' Dockerfile.template > "sphinxsearch:$version/Dockerfile"
-		sed 's/%%SPHINX_VERSION%%/'$version'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' README.template.md > "sphinxsearch:$version/README.md"
+
+		sed 's/%%SPHINX_VERSION%%/'${version%-beta}'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' Dockerfile.template > "sphinxsearch:$version/Dockerfile"
+		sed 's/%%SPHINX_VERSION%%/'${version%-beta}'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' README.template.md > "sphinxsearch:$version/README.md"
 	)
 done
 

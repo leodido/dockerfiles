@@ -3,7 +3,7 @@ Sphinx Search docker file
 
 Version: **2.2.8**
 
-You can read [the official changelog](http://sphinxsearch.com/bugs/changelog_page.php) the official changelog for details on changes.
+You can read [the official changelog](http://sphinxsearch.com/bugs/changelog_page.php) for details on changes.
 
 ## Content
 
