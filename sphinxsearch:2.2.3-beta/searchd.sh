@@ -3,4 +3,4 @@
 # @author leodido
 
 # start searchd without exiting shel
-searchd --nodetach "$@"
+exec searchd --nodetach "$@"

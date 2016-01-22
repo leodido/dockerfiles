@@ -3,4 +3,4 @@
 # @author leodido
 
 indexer --all "$@"
-./searchd.sh
+. searchd.sh
