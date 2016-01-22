@@ -28,22 +28,6 @@ Or pull a specific version:
 $ docker pull leodido/sphinxsearch:latest
 ```
 
-### TreeTagger
-
-[![Docker](http://dockeri.co/image/leodido/treetagger)](https://registry.hub.docker.com/u/leodido/treetagger/)
-
-A tool for annotating text with part-of-speech (POS tagging) and lemma information.
-
-- Latest version (3.2)
-
-Also available on [docker index](https://registry.hub.docker.com/u/leodido/treetagger).
-
-Pull them:
-
-```
-$ docker pull leodido/treetagger
-```
-
 ### TeX Live
 
 [![Docker](http://dockeri.co/image/leodido/texlive)](https://registry.hub.docker.com/u/leodido/texlive/)
