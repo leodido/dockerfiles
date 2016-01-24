@@ -39,7 +39,7 @@ for version in "${versions[@]}"; do
 		cp .dicts/* "sphinxsearch:$version/dicts/"
 
 		sed 's/%%SPHINX_VERSION%%/'${version%-beta}'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' Dockerfile.template > "sphinxsearch:$version/Dockerfile"
-		sed 's/%%SPHINX_VERSION%%/'${version%-beta}'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' README.template.md > "sphinxsearch:$version/README.md"
+		sed 's/%%SPHINX_VERSION%%/'${version}'/g; s/%%SPHINX_RELEASE%%/'$sphinx_release_type'/g; s/%%GOOGLE_RE_VERSION%%/'$google_re_version'/g' README.template.md > "sphinxsearch:$version/README.md"
 	)
 done
 
